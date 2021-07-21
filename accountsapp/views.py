@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import render
 
 # Create your views here.
@@ -53,16 +53,17 @@ class AccountUpdateView(UpdateView):
     template_name = 'accountsapp/update.html'
 
     def get(self,request,*args, **kwargs):
-        if request.user.is_authenticated:
+        if request.user.is_authenticated and self.get_object() == request.user:
             return super().get(self,request,*args, **kwargs)
         else:
-            return HttpResponseRedirect(reverse('accountsapp:login'))
+            return  HttpResponseForbidden()
 
-    def post(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return super().post(self, request, *args, **kwargs)
+
+    def post(self,request,*args, **kwargs):
+        if request.user.is_authenticated and self.get_object() == request.user:
+            return super().post(self,request,*args, **kwargs)
         else:
-            return HttpResponseRedirect(reverse('accountsapp:login'))
+            return  HttpResponseForbidden()
 
 class AccountDeleteView(DeleteView):
     model = User
@@ -70,14 +71,14 @@ class AccountDeleteView(DeleteView):
     success_url = reverse_lazy('accountsapp:hello_world')
     template_name = 'accountsapp/delete.html'
 
-    def get(self,request,*args, **kwargs):
-        if request.user.is_authenticated:
-            return super().get(self,request,*args, **kwargs)
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated and self.get_object() == request.user:
+            return super().get(self, request, *args, **kwargs)
         else:
-            return HttpResponseRedirect(reverse('accountsapp:login'))
+            return HttpResponseForbidden()
 
     def post(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
+        if request.user.is_authenticated and self.get_object() == request.user:
             return super().post(self, request, *args, **kwargs)
         else:
-            return HttpResponseRedirect(reverse('accountsapp:login'))
+            return HttpResponseForbidden()
