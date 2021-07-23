@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.urls import reverse, reverse_lazy
@@ -14,7 +14,7 @@ from accountsapp.models import NewModel
 
 
 def hello_world(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated: # @login rquired 로 대체 가능.
         if request.method == "POST":
             temp = request.POST.get('input_text')
 
@@ -31,7 +31,7 @@ def hello_world(request):
             return render(request, 'accountsapp/hello_world.html',
                           context={'data_list': data_list})
     else:
-        return HttpResponseRedirect(reverse('accountsapp:login'))
+        return redirect('accountsapp:login')
 
 class AccountCreateView(CreateView):
     model = User
