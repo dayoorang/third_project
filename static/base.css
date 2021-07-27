@@ -12,3 +12,11 @@
     max-width: 500px;
     padding: 1rem 1.5rem;
 }
+
+.profile_image {
+    height: 12rem;
+    width: 1wrem;
+    border-radius: 20rem;
+    object-fit: cover;
+
+}
