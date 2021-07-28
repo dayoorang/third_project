@@ -49,7 +49,7 @@ class AccountUpdateView(UpdateView):
     model = User
     form_class = AccountCreationForm
     context_object_name = 'target_user'
-    success_url = reverse_lazy('accountsapp:hello_world')
+    # success_url = reverse_lazy('accountsapp:hello_world')
     template_name = 'accountsapp/update.html'
 
     def get(self,request,*args, **kwargs):
@@ -64,6 +64,10 @@ class AccountUpdateView(UpdateView):
             return super().post(self,request,*args, **kwargs)
         else:
             return  HttpResponseForbidden()
+
+    def get_success_url(self):
+        return reverse('accountsapp:detail', kwargs={'pk':self.object.pk})
+
 
 class AccountDeleteView(DeleteView):
     model = User
