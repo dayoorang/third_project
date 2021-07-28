@@ -1,11 +1,12 @@
 from django.contrib import admin
 from django.urls import path, include
 
-from profilesapp.views import ProfileCreationView
+from profilesapp.views import ProfileCreationView, ProfileUpdateView
 
 app_name ='profileapp'
 urlpatterns = [
 
-    path('create/',ProfileCreationView.as_view(), name = 'create' )
+    path('create/',ProfileCreationView.as_view(), name = 'create' ),
+    path('update/<int:pk>', ProfileUpdateView.as_view(), name='update')
 
 ]
