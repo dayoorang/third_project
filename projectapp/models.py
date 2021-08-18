@@ -7,3 +7,6 @@ class Project(models.Model):
     image = models.ImageField(upload_to='project/', null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.name}'

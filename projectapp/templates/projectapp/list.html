@@ -13,7 +13,7 @@
 
         .container div {
           {#width: 280px; #}
-          width: 3rem;
+          {#width: 45%;#}
           {#max-width: 200px;#}
          {#height: 500px;#}
 
@@ -46,7 +46,7 @@
             <div>
                 <a href="{% url 'projectapp:detail' pk=project.pk %}">
                     {% if project.image %}
-                        <img src="{{ project.image.url }}" alt="">
+                    <img src="{{ project.image.url }}" alt="">
                     {% endif %}
                 </a>
                 <span class="my-2 NNS_B">{{ project.name | truncatechars:10 }}</span>
