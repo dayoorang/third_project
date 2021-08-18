@@ -3,61 +3,68 @@
 
 {% block content %}
     <style>
+
         .container {
             padding: 0;
             margin: 0 auto;
+            {#  앞에 있는게 상하, 뒤에있는게 좌우#}
 
         }
+
         .container div {
-            width: 45%;
-            max-width: 200px;
-          {#height: 500px;#}
-          {#background-color: antiquewhite;#}
+          {#width: 280px; #}
+          width: 3rem;
+          {#max-width: 200px;#}
+         {#height: 500px;#}
+
+
           display: flex;
           justify-content: center;
           align-items: center;
-          border-radius: 8px;
+          border-radius: 1rem;
             flex-direction: column;
-            box-shadow: 0 0 1rem grey;
+            {#box-shadow: 0 0 1rem grey;#}
         }
-        {##}
+
+        .container img {
+            width: 7rem;
+            height: 7rem;
+            object-fit: cover;
+            border-radius: 1rem;
+
+        }
         {#.container .item1 { height: 200px; }#}
         {#.container .item4 { height: 800px; }#}
         {#.container .item6 { height: 600px; }#}
         {#.container .item11 { height: 400px; }#}
-        .container img {
-            width: 100%;
-        }
+
     </style>
-
-
 
     <div class="container my-4">
         {% for project in project_list %}
-        <div>
-            <a href="{% url 'projectapp:detail' pk=project.pk %}">
-                {% if project.image %}
-                    <img src ="{{ project.image.url }}" alt="" >
-                {% endif %}
-            </a>
-            <span class="my-2 NNS_B">{{ project.name }}</span>
-        </div>
+
+            <div>
+                <a href="{% url 'projectapp:detail' pk=project.pk %}">
+                    {% if project.image %}
+                        <img src="{{ project.image.url }}" alt="">
+                    {% endif %}
+                </a>
+                <span class="my-2 NNS_B">{{ project.name | truncatechars:10 }}</span>
+            </div>
+
         {% endfor %}
     </div>
 
+    <script src="{% static 'js/magicgrid.js' %}" }> </script>
 
-
-    <script src="{% static 'js/magicgrid.js' %}" }>
-    </script>
 
     {% include 'snippets/pagination.html' %}
 
     <div class="text-center my-5">
-
-    <a href="{% url 'projectapp:create' %}"
-    class="btn btn-outline-dark rounded-pill px-5">
-        Create Project
-    </a>
-
+        <a href="{% url 'projectapp:create' %}"
+        class = 'btn btn-outline-dark rounded-pill px-5'>
+            Create project
+        </a>
     </div>
+
 {% endblock %}
