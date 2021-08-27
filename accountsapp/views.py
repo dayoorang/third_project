@@ -12,26 +12,26 @@ from accountsapp.forms import AccountCreationForm
 from accountsapp.models import NewModel
 from articleapp.models import Article
 
-
-def hello_world(request):
-    if request.user.is_authenticated: # @login rquired 로 대체 가능.
-        if request.method == "POST":
-            temp = request.POST.get('input_text')
-
-            new_model = NewModel()
-            new_model.text = temp
-            new_model.save()
-
-            data_list = NewModel.objects.all()
-
-            return HttpResponseRedirect(reverse('accountsapp:hello_world'))
-        else:
-            data_list = NewModel.objects.all()
-
-            return render(request, 'accountsapp/hello_world.html',
-                          context={'data_list': data_list})
-    else:
-        return redirect('accountsapp:login')
+#
+# def hello_world(request):
+#     if request.user.is_authenticated: # @login rquired 로 대체 가능.
+#         if request.method == "POST":
+#             temp = request.POST.get('input_text')
+#
+#             new_model = NewModel()
+#             new_model.text = temp
+#             new_model.save()
+#
+#             data_list = NewModel.objects.all()
+#
+#             return HttpResponseRedirect(reverse('accountsapp:hello_world'))
+#         else:
+#             data_list = NewModel.objects.all()
+#
+#             return render(request, 'accountsapp/hello_world.html',
+#                           context={'data_list': data_list})
+#     else:
+#         return redirect('accountsapp:login')
 
 class AccountCreateView(CreateView):
     model = User
@@ -77,7 +77,7 @@ class AccountUpdateView(UpdateView):
 class AccountDeleteView(DeleteView):
     model = User
     context_object_name = 'target_user'
-    success_url = reverse_lazy('accountsapp:hello_world')
+    success_url = reverse_lazy('articleapp:list')
     template_name = 'accountsapp/delete.html'
 
     def get(self, request, *args, **kwargs):
