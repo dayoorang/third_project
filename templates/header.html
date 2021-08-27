@@ -1,41 +1,45 @@
 <div>
-    <h1 class="hello_word_head_name "> hello world</h1>
+    <h1 class="hello_word_head_name ">
+        <a href="{% url 'articleapp:list' %}">
+            hello world
+        </a>
+    </h1>
     <div style="text-align:center">
-        <span>
+        <span class="mx-2">
             <a href="{% url 'articleapp:list' %}">
                 Articles
             </a>
         </span>
-        <span>
+        <span class="mx-2">
             <a href="{% url 'projectapp:list' %}">
                 Projects
             </a>
         </span>
         {% if user.is_authenticated %}
-            <span>
+            <span class="mx-2">
                 <a href="{% url 'subscribeapp:list' %}">
                     Subscription
                 </a>
             </span>
         {% endif %}
         {% if not user.is_authenticated %}
-        <span>
+        <span class="mx-2">
             <a href="{% url 'accountsapp:login' %}">
                 Login
             </a>
         </span>
-        <span>
+        <span class="mx-2">
             <a href="{% url 'accountsapp:create' %}">
                 Signup
             </a>
         </span>
         {% else %}
-        <span>
+        <span class="mx-2">
             <a href="{% url 'accountsapp:logout' %}">
                 Logout
             </a>
         </span>
-        <span>
+        <span class="mx-2">
             <a href="{% url 'accountsapp:detail' user.pk %}">
                 Mypage
             </a>
